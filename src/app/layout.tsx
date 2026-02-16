@@ -18,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className="dark">
       <body className={`${inter.className} antialiased`}>
+        <style dangerouslySetInnerHTML={{ __html: `body { background-color: purple !important; }` }} />
         {children}
       </body>
     </html>
