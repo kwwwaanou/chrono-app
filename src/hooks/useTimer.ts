@@ -78,7 +78,7 @@ export function useTimer() {
         tick();
       }, 1000);
     } else if (timeLeft === 0 && isActive) {
-      incrementSets();
+      // incrementSets is now handled in store's tick() to avoid race conditions
       playBeep(880, 0.5); // Final beep
       releaseWakeLock();
     } else {

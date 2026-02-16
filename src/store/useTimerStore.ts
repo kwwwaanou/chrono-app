@@ -65,12 +65,18 @@ export const useTimerStore = create<TimerState>()(
         if (state.timeLeft <= 0) {
           return { isActive: false, timeLeft: 0 };
         }
-        return { timeLeft: state.timeLeft - 1 };
+        const nextTime = state.timeLeft - 1;
+        if (nextTime === 0) {
+          return { 
+            timeLeft: 0, 
+            isActive: false, 
+            completedSets: state.completedSets + 1 
+          };
+        }
+        return { timeLeft: nextTime };
       }),
 
-      incrementSets: () => set((state) => ({ 
-        completedSets: state.completedSets + 1 
-      })),
+      incrementSets: () => {}, // Handled in tick for reliability
 
       clearSets: () => set({ completedSets: 0 }),
 

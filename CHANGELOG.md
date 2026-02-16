@@ -1,4 +1,6 @@
-# Changelog - Chronosport
+## [1.2.1] - 2026-02-16
+### Fixed
+- **Sets Increment Bug** : Correction du bug où le compteur de séries augmentait de manière incohérente (race condition entre le hook React et le store Zustand). L'incrémentation est désormais gérée de manière atomique dans le store.
 
 ## [1.2.0] - 2026-02-16
 ### Added
