@@ -25,6 +25,7 @@ module.exports = {
           foreground: "hsl(var(--accent-foreground))",
         },
         border: "hsl(var(--border))",
+        "set-indicator": "hsl(var(--set-indicator))",
       },
     },
   },

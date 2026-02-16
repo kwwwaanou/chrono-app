@@ -22,7 +22,7 @@ export function SetCounter() {
         {Array.from({ length: Math.min(completedSets, 20) }).map((_, i) => (
           <div 
             key={i} 
-            className="w-2 h-2 rounded-full bg-primary" 
+            className="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(255,87,34,0.4)]" 
           />
         ))}
         {completedSets > 20 && (

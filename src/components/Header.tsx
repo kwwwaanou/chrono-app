@@ -40,9 +40,12 @@ export function Header() {
 
   return (
     <header className="flex items-center justify-between p-6">
-      <h1 className="text-xl font-black uppercase tracking-tighter text-primary">
-        Chrono-App
-      </h1>
+      <div className="flex flex-col">
+        <h1 className="text-2xl font-black uppercase tracking-tighter text-foreground">
+          CHRONO<span className="text-primary">SPORT</span>
+        </h1>
+        <div className="h-1 w-full bg-primary rounded-full mt-[-2px]" />
+      </div>
       <div className="flex gap-4">
         <button
           onClick={handleReset}

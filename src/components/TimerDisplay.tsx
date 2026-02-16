@@ -14,60 +14,81 @@ export function TimerDisplay() {
   const offset = circumference - (progress / 100) * circumference;
 
   return (
-    <div className="flex flex-col items-center justify-center p-8 mx-4 relative">
+    <div className="flex flex-col items-center justify-center p-4 mx-2 relative scale-90 sm:scale-100">
       <div className="relative flex items-center justify-center">
-        <svg className="w-64 h-64 -rotate-90">
+        <svg className="w-56 h-56 sm:w-64 sm:h-64 -rotate-90 drop-shadow-sm">
           <circle
-            cx="128"
-            cy="128"
-            r={radius}
+            cx="112"
+            cy="112"
+            r="100"
             stroke="currentColor"
-            strokeWidth="8"
+            strokeWidth="10"
             fill="transparent"
-            className="text-muted/20"
+            className="text-muted sm:hidden"
           />
           <circle
             cx="128"
             cy="128"
             r={radius}
             stroke="currentColor"
-            strokeWidth="8"
+            strokeWidth="10"
+            fill="transparent"
+            className="text-muted hidden sm:block"
+          />
+          <circle
+            cx="112"
+            cy="112"
+            r="100"
+            stroke="currentColor"
+            strokeWidth="10"
+            fill="transparent"
+            strokeDasharray={2 * Math.PI * 100}
+            strokeDashoffset={2 * Math.PI * 100 - (progress / 100) * 2 * Math.PI * 100}
+            strokeLinecap="round"
+            className="text-primary transition-all duration-1000 ease-linear sm:hidden"
+          />
+          <circle
+            cx="128"
+            cy="128"
+            r={radius}
+            stroke="currentColor"
+            strokeWidth="10"
             fill="transparent"
             strokeDasharray={circumference}
             strokeDashoffset={offset}
             strokeLinecap="round"
-            className="text-primary transition-all duration-1000 ease-linear"
+            className="text-primary transition-all duration-1000 ease-linear hidden sm:block"
           />
         </svg>
 
-        <div className={`absolute text-6xl font-black tabular-nums transition-all ${
-          timeLeft <= 5 && isActive ? "text-red-500 scale-110" : "text-foreground"
+        <div className={`absolute text-5xl sm:text-6xl font-black tabular-nums transition-all drop-shadow-md ${
+          timeLeft <= 5 && isActive ? "text-red-600 scale-110" : "text-foreground"
         }`}>
           {formatTime(timeLeft)}
         </div>
       </div>
 
-      <div className="flex gap-8 mt-12">
+      <div className="flex gap-6 sm:gap-8 mt-8 sm:mt-12">
         <button
           onClick={resetTimer}
-          className="p-4 rounded-full bg-muted text-muted-foreground hover:bg-accent transition-all active:scale-90"
+          className="p-3 sm:p-4 rounded-full bg-muted text-muted-foreground hover:bg-accent transition-all active:scale-90"
         >
-          <RotateCcw size={28} />
+          <RotateCcw size={24} className="sm:w-7 sm:h-7" />
         </button>
 
         {isActive ? (
           <button
             onClick={pauseTimer}
-            className="p-6 rounded-full bg-foreground text-background hover:opacity-90 transition-all active:scale-95 shadow-2xl"
+            className="p-5 sm:p-6 rounded-full bg-foreground text-background hover:opacity-90 transition-all active:scale-95 shadow-2xl"
           >
-            <Pause size={32} />
+            <Pause size={28} className="sm:w-8 sm:h-8" />
           </button>
         ) : (
           <button
             onClick={startTimer}
-            className="p-6 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-all active:scale-95 shadow-2xl"
+            className="p-5 sm:p-6 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-all active:scale-95 shadow-2xl"
           >
-            <Play size={32} className="ml-1" />
+            <Play size={28} className="ml-1 sm:w-8 sm:h-8" />
           </button>
         )}
       </div>

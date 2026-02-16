@@ -24,15 +24,15 @@ export function PresetGrid() {
   };
 
   return (
-    <div className="grid grid-cols-4 gap-3 p-6 w-full max-w-md mx-auto">
+    <div className="grid grid-cols-4 gap-2 px-4 pb-6 w-full max-w-md mx-auto">
       {PRESETS.map((preset) => (
         <button
           key={preset.value}
           onClick={() => handlePresetClick(preset.value)}
-          className={`py-4 rounded-2xl font-black transition-all active:scale-95 ${
+          className={`py-3 rounded-xl text-sm font-black transition-all active:scale-95 border-2 ${
             initialTime === preset.value
-              ? "bg-primary text-primary-foreground shadow-lg scale-105"
-              : "bg-muted text-muted-foreground hover:bg-accent"
+              ? "bg-primary text-primary-foreground border-primary shadow-[0_0_15px_rgba(255,87,34,0.3)] scale-105"
+              : "bg-background text-foreground border-border hover:border-primary/50 hover:bg-muted"
           }`}
         >
           {preset.label}
