@@ -1,3 +1,7 @@
+## [1.2.2] - 2026-02-16
+### Changed
+- **Default Theme** : Le mode clair est désormais le thème par défaut de l'application.
+
 ## [1.2.1] - 2026-02-16
 ### Fixed
 - **Sets Increment Bug** : Correction du bug où le compteur de séries augmentait de manière incohérente (race condition entre le hook React et le store Zustand). L'incrémentation est désormais gérée de manière atomique dans le store.
