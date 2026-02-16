@@ -4,20 +4,6 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --primary: 16 100% 57%;
-    --primary-foreground: 210 40% 98%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --border: 214.3 31.8% 91.4%;
-  }
-
-  .dark {
     --background: 240 10% 4%;
     --foreground: 0 0% 98%;
     --card: 240 10% 4%;
@@ -29,6 +15,12 @@
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
+  }
+
+  /* Force dark mode variables even if .dark class is missing, since the user wants Modern Dark */
+  body {
+    background-color: hsl(240 10% 4%);
+    color: hsl(0 0% 98%);
   }
 }
 
