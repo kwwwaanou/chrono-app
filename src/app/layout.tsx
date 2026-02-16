@@ -7,6 +7,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Chronosport",
   description: "Mobile-first sports set timer",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/icon-192.png",
+  },
 };
 
 export default function RootLayout({
