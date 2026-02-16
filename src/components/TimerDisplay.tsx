@@ -2,11 +2,18 @@
 
 import React from "react";
 import { useTimerStore } from "@/store/useTimerStore";
+import { useTimer } from "@/hooks/useTimer";
 import { formatTime } from "@/lib/utils";
 import { Play, Pause, RotateCcw } from "lucide-react";
 
 export function TimerDisplay() {
   const { timeLeft, initialTime, isActive, startTimer, pauseTimer, resetTimer } = useTimerStore();
+  const { initAudio } = useTimer();
+
+  const handleStart = () => {
+    initAudio();
+    startTimer();
+  };
 
   const progress = initialTime > 0 ? (timeLeft / initialTime) * 100 : 0;
   const radius = 120;
@@ -85,7 +92,7 @@ export function TimerDisplay() {
           </button>
         ) : (
           <button
-            onClick={startTimer}
+            onClick={handleStart}
             className="p-5 sm:p-6 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-all active:scale-95 shadow-2xl"
           >
             <Play size={28} className="ml-1 sm:w-8 sm:h-8" />

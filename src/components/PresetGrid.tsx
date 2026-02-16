@@ -2,14 +2,17 @@
 
 import React, { useState } from "react";
 import { useTimerStore } from "@/store/useTimerStore";
+import { useTimer } from "@/hooks/useTimer";
 import { MoreVertical, X, Check } from "lucide-react";
 
 export function PresetGrid() {
   const { setTimer, startTimer, initialTime, presets, updatePreset } = useTimerStore();
+  const { initAudio } = useTimer();
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [editValue, setEditValue] = useState<string>("");
 
   const handlePresetClick = (seconds: number) => {
+    initAudio();
     setTimer(seconds);
     // Use a small timeout to ensure state is updated before starting
     setTimeout(() => startTimer(), 10);

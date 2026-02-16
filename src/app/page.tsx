@@ -34,7 +34,7 @@ export default function Home() {
       </div>
 
       <footer className="p-6 text-center text-muted-foreground/30 text-[10px] font-bold uppercase tracking-widest">
-        Chrono-App • v1.1.1
+        Chrono-App • v1.3.0
       </footer>
     </main>
   );
