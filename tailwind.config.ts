@@ -9,23 +9,25 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#FF5722",
-          foreground: "#FFFFFF",
-        },
-        secondary: {
-          DEFAULT: "#2196F3", // Blue for sets
-          foreground: "#FFFFFF",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         muted: {
-          DEFAULT: "#F5F5F5",
-          foreground: "#737373",
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        border: "hsl(var(--border))",
       },
     },
   },
+  darkMode: "class",
   plugins: [],
 };
 export default config;
