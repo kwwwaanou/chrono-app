@@ -14,8 +14,7 @@ export function PresetGrid() {
   const handlePresetClick = (seconds: number) => {
     initAudio();
     setTimer(seconds);
-    // Use a small timeout to ensure state is updated before starting
-    setTimeout(() => startTimer(), 10);
+    startTimer();
   };
 
   const handleEditClick = (e: React.MouseEvent, index: number) => {

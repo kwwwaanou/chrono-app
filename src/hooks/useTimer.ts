@@ -92,7 +92,7 @@ export function useTimer() {
 
   // Sound Alerts for the last 5 seconds
   useEffect(() => {
-    if (isActive && timeLeft <= 5 && timeLeft > 0) {
+    if (isActive && timeLeft <= 5 && timeLeft >= 0) {
       playBeep(440, 0.1);
     }
   }, [timeLeft, isActive, playBeep]);
