@@ -11,28 +11,30 @@ export default function Home() {
   useTimer();
 
   return (
-    <main className="min-h-screen bg-gray-50 flex flex-col max-w-lg mx-auto overflow-hidden shadow-2xl">
+    <main className="min-h-screen bg-background flex flex-col max-w-lg mx-auto overflow-hidden">
       <Header />
       
-      <div className="flex-1 flex flex-col justify-center gap-8 py-8">
+      <div className="flex-1 flex flex-col justify-between py-4">
         <section>
           <SetCounter />
         </section>
 
-        <section>
+        <section className="flex-1 flex items-center justify-center">
           <TimerDisplay />
         </section>
 
         <section className="mt-auto">
-          <div className="text-center mb-2">
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Choix du temps</span>
+          <div className="text-center mb-1">
+            <span className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">
+              Select Intensity
+            </span>
           </div>
           <PresetGrid />
         </section>
       </div>
 
-      <footer className="p-4 text-center text-gray-400 text-[10px] uppercase tracking-tighter bg-white border-t border-gray-100">
-        Chronosport - Training Timer v1.0
+      <footer className="p-6 text-center text-muted-foreground/30 text-[10px] font-bold uppercase tracking-widest">
+        Chronosport • Performance Timer
       </footer>
     </main>
   );

@@ -2,34 +2,31 @@
 
 import React from "react";
 import { useTimerStore } from "@/store/useTimerStore";
-import { RotateCcw } from "lucide-react";
 
 export function SetCounter() {
-  const { completedSets, clearSets } = useTimerStore();
+  const { completedSets } = useTimerStore();
 
   return (
-    <div className="flex flex-col items-center gap-2 p-4">
-      <span className="text-sm font-semibold uppercase text-muted-foreground">Séries Terminées</span>
-      <div className="flex items-center gap-4">
-        <div className="flex gap-1 flex-wrap justify-center">
-          {Array.from({ length: Math.min(completedSets, 10) }).map((_, i) => (
-            <div key={i} className="w-4 h-4 rounded-full bg-secondary shadow-sm" />
-          ))}
-          {completedSets > 0 && (
-            <span className="ml-2 font-bold text-secondary">x{completedSets}</span>
-          )}
-          {completedSets === 0 && (
-            <span className="text-gray-300 italic">Aucune série</span>
-          )}
-        </div>
-        {completedSets > 0 && (
-          <button 
-            onClick={clearSets}
-            className="p-1 hover:bg-gray-100 rounded-full transition-colors"
-            title="Réinitialiser les séries"
-          >
-            <RotateCcw size={16} className="text-gray-400" />
-          </button>
+    <div className="flex flex-col items-center gap-3 p-8">
+      <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
+        Sets Completed
+      </span>
+      <div className="flex items-baseline gap-2">
+        <span className="text-5xl font-black text-foreground">
+          {completedSets}
+        </span>
+        <span className="text-xl font-bold text-primary">SETS</span>
+      </div>
+      
+      <div className="flex gap-1.5 mt-2 flex-wrap justify-center max-w-[200px]">
+        {Array.from({ length: Math.min(completedSets, 20) }).map((_, i) => (
+          <div 
+            key={i} 
+            className="w-2 h-2 rounded-full bg-primary" 
+          />
+        ))}
+        {completedSets > 20 && (
+          <div className="text-xs font-bold text-muted-foreground">+</div>
         )}
       </div>
     </div>

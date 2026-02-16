@@ -15,18 +15,24 @@ const PRESETS = [
 ];
 
 export function PresetGrid() {
-  const { setTimer, initialTime } = useTimerStore();
+  const { setTimer, startTimer, initialTime } = useTimerStore();
+
+  const handlePresetClick = (seconds: number) => {
+    setTimer(seconds);
+    // Use a small timeout to ensure state is updated before starting
+    setTimeout(() => startTimer(), 10);
+  };
 
   return (
-    <div className="grid grid-cols-4 gap-3 p-4 w-full max-w-md mx-auto">
+    <div className="grid grid-cols-4 gap-3 p-6 w-full max-w-md mx-auto">
       {PRESETS.map((preset) => (
         <button
           key={preset.value}
-          onClick={() => setTimer(preset.value)}
-          className={`py-3 rounded-xl font-bold transition-all active:scale-95 ${
+          onClick={() => handlePresetClick(preset.value)}
+          className={`py-4 rounded-2xl font-black transition-all active:scale-95 ${
             initialTime === preset.value
-              ? "bg-[#FF5722] text-white shadow-md"
-              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              ? "bg-primary text-primary-foreground shadow-lg scale-105"
+              : "bg-muted text-muted-foreground hover:bg-accent"
           }`}
         >
           {preset.label}
