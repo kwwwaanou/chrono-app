@@ -34,7 +34,7 @@ export default function Home() {
       </div>
 
       <footer className="p-6 text-center text-muted-foreground/30 text-[10px] font-bold uppercase tracking-widest">
-        Chronosport • Performance Timer
+        Chronosport • v1.1.0-stable
       </footer>
     </main>
   );
