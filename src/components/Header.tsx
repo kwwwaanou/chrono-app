@@ -9,10 +9,13 @@ export function Header() {
   const clearSets = useTimerStore((state) => state.clearSets);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.classList.toggle("dark", savedTheme === "dark");
+    // Initial theme setup: default to dark if no saved preference
+    const savedTheme = (localStorage.getItem("theme") as "light" | "dark") || "dark";
+    setTheme(savedTheme);
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
     }
   }, []);
 
@@ -20,7 +23,19 @@ export function Header() {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
+    
+    // Force direct DOM manipulation
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
+
+  const handleReset = () => {
+    if (confirm("Reset all completed sets?")) {
+      clearSets();
+    }
   };
 
   return (
@@ -30,15 +45,16 @@ export function Header() {
       </h1>
       <div className="flex gap-4">
         <button
-          onClick={clearSets}
-          className="p-2 rounded-full bg-muted text-muted-foreground hover:bg-accent transition-colors"
+          onClick={handleReset}
+          className="p-3 rounded-full bg-muted/50 text-muted-foreground hover:bg-primary/20 hover:text-primary transition-all active:scale-90"
           title="Reset Sets"
         >
           <RotateCcw size={20} />
         </button>
         <button
           onClick={toggleTheme}
-          className="p-2 rounded-full bg-muted text-muted-foreground hover:bg-accent transition-colors"
+          className="p-3 rounded-full bg-muted/50 text-muted-foreground hover:bg-primary/20 hover:text-primary transition-all active:scale-90"
+          title="Toggle Theme"
         >
           {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
         </button>
