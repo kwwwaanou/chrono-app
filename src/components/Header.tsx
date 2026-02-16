@@ -26,7 +26,7 @@ export function Header() {
   return (
     <header className="flex items-center justify-between p-6">
       <h1 className="text-xl font-black uppercase tracking-tighter text-primary">
-        Chrono-App
+        Chrono-App FIX TEST
       </h1>
       <div className="flex gap-4">
         <button
