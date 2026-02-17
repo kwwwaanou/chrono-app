@@ -1,5 +1,10 @@
 # Changelog - Chronosport
 
+## [1.3.1] - 2026-02-17
+### Added
+- **Audio Improvements** : Bip de fin distinct (onde carrée 880Hz).
+- **Stability** : Renforcement de la Wake Lock API pour iOS/Safari.
+
 ## [1.3.0] - 2026-02-16
 ### Added
 - **Default Theme** : Le mode clair est désormais le thème par défaut.
