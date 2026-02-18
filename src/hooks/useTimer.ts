@@ -22,7 +22,7 @@ export function useTimer() {
     }
   }, []);
 
-  const playBeep = useCallback((frequency = 440, duration = 0.1) => {
+  const playBeep = useCallback((frequency = 440, duration = 0.1, type: "beep" | "final" = "beep") => {
     try {
       initAudio();
       const ctx = audioContextRef.current;
@@ -31,7 +31,7 @@ export function useTimer() {
       const oscillator = ctx.createOscillator();
       const gainNode = ctx.createGain();
 
-      oscillator.type = "sine";
+      oscillator.type = type === "final" ? "square" : "sine";
       oscillator.frequency.setValueAtTime(frequency, ctx.currentTime);
       
       // Web Audio API mixing: play alongside other apps
@@ -50,21 +50,35 @@ export function useTimer() {
 
   // Screen Wake Lock implementation
   const requestWakeLock = useCallback(async () => {
-    if ("wakeLock" in navigator && !wakeLockRef.current) {
-      try {
-        wakeLockRef.current = await (navigator as any).wakeLock.request("screen");
-        console.log("Wake Lock active");
-      } catch (err: any) {
-        console.error(`${err?.name}, ${err?.message}`);
-      }
+    if (typeof window === "undefined" || !("wakeLock" in navigator)) return;
+    
+    try {
+      // If a lock already exists, don't request a new one
+      if (wakeLockRef.current) return;
+      
+      wakeLockRef.current = await (navigator as any).wakeLock.request("screen");
+      
+      // Re-acquire lock if it's released by the system (e.g. after coming back from background)
+      wakeLockRef.current.addEventListener("release", () => {
+        console.log("Wake Lock was released by system");
+        wakeLockRef.current = null;
+      });
+      
+      console.log("Wake Lock acquired");
+    } catch (err: any) {
+      console.error(`Wake Lock Error: ${err?.name}, ${err?.message}`);
     }
   }, []);
 
   const releaseWakeLock = useCallback(async () => {
     if (wakeLockRef.current) {
-      await wakeLockRef.current.release();
-      wakeLockRef.current = null;
-      console.log("Wake Lock released");
+      try {
+        await wakeLockRef.current.release();
+        wakeLockRef.current = null;
+        console.log("Wake Lock released manually");
+      } catch (err: any) {
+        console.error(`Wake Lock Release Error: ${err?.name}, ${err?.message}`);
+      }
     }
   }, []);
 
@@ -77,36 +91,32 @@ export function useTimer() {
       interval = setInterval(() => {
         tick();
       }, 1000);
-    } else if (timeLeft === 0 && isActive) {
-      // incrementSets is now handled in store's tick() to avoid race conditions
-      playBeep(880, 0.5); // Final beep
-      releaseWakeLock();
     } else {
+      // Covers paused state, timeLeft === 0, and idle
+      if (timeLeft === 0 && isActive) {
+        playBeep(880, 0.5, "final");
+      }
       releaseWakeLock();
     }
 
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isActive, timeLeft, tick, incrementSets, playBeep, requestWakeLock, releaseWakeLock]);
+  }, [isActive, timeLeft, tick, playBeep, requestWakeLock, releaseWakeLock]);
 
-  // Sound Alerts for the last 5 seconds
+  // Handle visibility change to re-request wake lock
   useEffect(() => {
-    if (isActive && timeLeft <= 5 && timeLeft >= 0) {
-      playBeep(440, 0.1);
-    }
-  }, [timeLeft, isActive, playBeep]);
-
-  // Handle visibility change to re-request wake lock if tab becomes active again
-  useEffect(() => {
-    const handleVisibilityChange = () => {
+    const handleVisibilityChange = async () => {
       if (isActive && document.visibilityState === "visible") {
-        requestWakeLock();
+        await requestWakeLock();
       }
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, [isActive, requestWakeLock]);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      releaseWakeLock(); // Component unmount safety
+    };
+  }, [isActive, requestWakeLock, releaseWakeLock]);
 
   return { timeLeft, isActive, initAudio };
 }
