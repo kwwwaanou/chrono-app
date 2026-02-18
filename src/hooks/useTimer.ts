@@ -118,5 +118,5 @@ export function useTimer() {
     };
   }, [isActive, requestWakeLock, releaseWakeLock]);
 
-  return { timeLeft, isActive, initAudio };
+  return { timeLeft, isActive, initAudio, requestWakeLock };
 }

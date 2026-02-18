@@ -1,5 +1,9 @@
 # Changelog - Chronosport
 
+## [1.3.2] - 2026-02-18
+### Fixed
+- **Wake Lock Fix** : Déclenchement du verrouillage d'écran sur geste utilisateur (Play) pour une meilleure compatibilité iOS/Safari.
+
 ## [1.3.1] - 2026-02-17
 ### Added
 - **Audio Improvements** : Bip de fin distinct (onde carrée 880Hz).

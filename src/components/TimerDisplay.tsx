@@ -8,10 +8,11 @@ import { Play, Pause, RotateCcw } from "lucide-react";
 
 export function TimerDisplay() {
   const { timeLeft, initialTime, isActive, startTimer, pauseTimer, resetTimer } = useTimerStore();
-  const { initAudio } = useTimer();
+  const { initAudio, requestWakeLock } = useTimer();
 
   const handleStart = () => {
     initAudio();
+    requestWakeLock(); // Triggered by user gesture
     startTimer();
   };
 
