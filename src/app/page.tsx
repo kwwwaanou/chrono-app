@@ -14,8 +14,8 @@ export default function Home() {
     <main className="min-h-screen bg-background flex flex-col max-w-lg mx-auto overflow-hidden">
       <Header />
       
-      <div className="flex-1 flex flex-col justify-between py-4">
-        <section>
+      <div className="flex-1 flex flex-col justify-between py-2 sm:py-4">
+        <section className="flex flex-col items-center">
           <SetCounter />
         </section>
 
@@ -33,8 +33,8 @@ export default function Home() {
         </section>
       </div>
 
-      <footer className="p-6 text-center text-muted-foreground/30 text-[10px] font-bold uppercase tracking-widest">
-        Chrono-App • v1.3.2
+      <footer className="p-4 sm:p-6 text-center text-muted-foreground/30 text-[10px] font-bold uppercase tracking-widest">
+        Chrono-App • v1.3.3
       </footer>
     </main>
   );
